@@ -1,7 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-# import
+import argparse
+
+parser = argparse.ArgumentParser(description='Little_endian to big_endian.')
+parser.add_argument(
+    'binFile',  default="./test_little.bin", help='binary file')
+parser.add_argument(
+    '--output',  default="./test_bigEndian.bin", help='output big_endian bin file')
+parser.add_argument('--bitSize', default=32,
+                    help='architecture bit size,support:8,16,32,64')
+args = parser.parse_args()
 
 
 def transToMyHex(data):
@@ -13,25 +22,25 @@ def transToMyHex(data):
 
 
 if __name__ == "__main__":
-
-    bin_file = "/home/soym/Desktop/test_little.bin"
-    f = open(bin_file, "rb")
+    f = open(args.binFile, "rb")
     data = f.read()
-    print(len(data))
-    if len(data) % 4 == 0:
-        print("%4 ok")
-    tmp = []
-    data_trans = ''
-    for i in range(len(data)):
-        if (i+1) % 4 == 0:
-            print(transToMyHex(data[i]))
-            data_trans += transToMyHex(data[i])
-            data_trans += transToMyHex(data[i-1])
-            data_trans += transToMyHex(data[i-2])
-            data_trans += transToMyHex(data[i-3])
-            # data_trans = data_trans + chr(data[i])+chr(data[i-1]) + chr(data[i-2])+chr(data[i-3])
-    print(data_trans)
+    print("len: {}".format(len(data)))
 
-    bin_file_trans = "/home/soym/Desktop/test_bigEndian.bin"
-    with open(bin_file_trans, 'wb') as file_object:
-        file_object.write(bytes.fromhex(data_trans))
+    tmp_size = int(args.bitSize/8)
+    if len(data) % tmp_size == 0:
+        print("split_size: {}".format(int(tmp_size)))
+
+        tmp = []
+        data_trans = ''
+        for i in range(len(data)):
+            if (i+1) % tmp_size == 0:
+                data_trans += transToMyHex(data[i])
+                data_trans += transToMyHex(data[i-1])
+                data_trans += transToMyHex(data[i-2])
+                data_trans += transToMyHex(data[i-3])
+        # print(data_trans)
+
+        with open(args.output, 'wb') as file_object:
+            file_object.write(bytes.fromhex(data_trans))
+
+        print("Trans success\nOutput file: {}".format(args.output))
