@@ -1,0 +1,8 @@
+language: python
+# sudo: required
+python:
+  - "3.6"
+  - "3.8"
+
+script:
+  - python3 little_endian2big_endian.py ./test_little.bin
