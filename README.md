@@ -5,7 +5,8 @@ Travis CI: [![Travis CI status](https://travis-ci.com/SoyM/littleEndian2bigEndia
 ## Usage
 
 ```bash
-usage: little_endian2big_endian.py [-h] [--output OUTPUT] [--bitSize BITSIZE]
+usage: little_endian2big_endian.py [-h] [-v] [--output OUTPUT]
+                                   [--bitSize BITSIZE]
                                    binFile
 
 Little_endian to big_endian.
@@ -15,6 +16,7 @@ positional arguments:
 
 optional arguments:
   -h, --help         show this help message and exit
+  -v, --verbose      increase output verbosity
   --output OUTPUT    output big_endian bin file
   --bitSize BITSIZE  architecture bit size,support:8,16,32,64
 ```

@@ -7,9 +7,12 @@ parser = argparse.ArgumentParser(description='Little_endian to big_endian.')
 parser.add_argument(
     'binFile',  default="./test_little.bin", help='binary file')
 parser.add_argument(
+    "-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument(
     '--output',  default="./test_bigEndian.bin", help='output big_endian bin file')
-parser.add_argument('--bitSize', default=32,
+parser.add_argument('--bitSize', type=int, default=32,
                     help='architecture bit size,support:8,16,32,64')
+
 args = parser.parse_args()
 
 
@@ -26,7 +29,7 @@ if __name__ == "__main__":
     data = f.read()
     print("len: {}".format(len(data)))
 
-    tmp_size = int(args.bitSize/8)
+    tmp_size = int(int(args.bitSize)/8)
     if len(data) % tmp_size == 0:
         print("split_size: {}".format(int(tmp_size)))
 
@@ -38,7 +41,8 @@ if __name__ == "__main__":
                 data_trans += transToMyHex(data[i-1])
                 data_trans += transToMyHex(data[i-2])
                 data_trans += transToMyHex(data[i-3])
-        # print(data_trans)
+        if args.verbose:
+            print(data_trans)
 
         with open(args.output, 'wb') as file_object:
             file_object.write(bytes.fromhex(data_trans))
