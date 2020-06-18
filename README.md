@@ -1,5 +1,7 @@
 # littleEndian2bigEndian
 
+Travis CI: [![Travis CI status](https://travis-ci.com/SoyM/littleEndian2bigEndian.svg?branch=master)](https://travis-ci.com/github/SoyM/littleEndian2bigEndian)
+
 ## Usage
 
 ```bash

@@ -1,8 +1,14 @@
 language: python
 # sudo: required
 python:
+  - "3.5"
   - "3.6"
   - "3.8"
 
 script:
   - python3 little_endian2big_endian.py ./test_little.bin
+  - python3 little_endian2big_endian.py ./test_little.bin --output ./test_bigEndian.bin
+  - python3 little_endian2big_endian.py ./test_little.bin --bitSize 8
+  - python3 little_endian2big_endian.py ./test_little.bin --bitSize 16
+  - python3 little_endian2big_endian.py ./test_little.bin --bitSize 32
+  - python3 little_endian2big_endian.py ./test_little.bin --bitSize 64
